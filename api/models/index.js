@@ -22,6 +22,7 @@ db.sequelize = sequelize;
 /* Create database tables and models */
 db.contacts = require("./contact.model.js")(sequelize, Sequelize);
 db.phones = require("./phone.model.js")(sequelize, Sequelize);
+// Task 4.1
 db.companies = require("./companies.model.js")(sequelize, Sequelize);
 
 // Add migrations to alter the already-live tables
