@@ -1,6 +1,6 @@
 # Task 2
 ## Task 2.1
-http GET localhost/contacts/
+http GET http://localhost/api/contacts/
 ![Screenshot of result from GET contacts/ API](./T2_1.jpg)
 
 ## Task 2.2
