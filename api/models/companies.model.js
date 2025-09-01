@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
         company_address: {
             type: Sequelize.STRING
         },
-        contactId: {
+        contact_id: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'contacts',
