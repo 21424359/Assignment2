@@ -1,5 +1,5 @@
 const db = require("../models");
-const Companies = db.companies;
+const Company = db.companies;
 const Op = db.Sequelize.Op;
 
 // Create (POST) company
@@ -11,11 +11,8 @@ exports.create = (req, res) => {
         contactId: parseInt(req.params.contactId)
     };
 
-    // TODO: check if the company name and address combination 
-    // already exists. If so, don't create.
-
     // Now create the company
-    Companies.create(company)
+    Company.create(company)
         .then(data => {
             res.send(data);
         })
@@ -30,7 +27,7 @@ exports.create = (req, res) => {
 // Read (GET) company
 // Assuming that a person can only be part of 1 company
 exports.findOne = (req, res) => {
-    Companies.findOne({
+    Company.findOne({
         where: {
             contactId: req.params.contactId,
             id: req.params.companyId
@@ -50,8 +47,8 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.companyId;
 
-    Companies.update(req.body, {
-        where: { id: id, contactId: req.params.contactId }
+    Company.update(req.body, {
+        where: { company_id: id, contactId: req.params.contactId }
     })
         .then(num => {
             if (num == 1) {
@@ -73,15 +70,15 @@ exports.update = (req, res) => {
 
 // Delete (DELETE) company
 exports.delete = (req, res) => {
-    const id = req.params.companyId;
+    const id = req.params.company_id;
 
-    Companies.update(req.body, {
+    Company.destroy(req.body, {
         where: { id: id, contactId: req.params.contactId }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Company was updated successfully."
+                    message: "Company was destroyed successfully."
                 });
             } else {
                 res.send({
