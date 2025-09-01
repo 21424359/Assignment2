@@ -22,10 +22,7 @@ db.sequelize = sequelize;
 /* Create database tables and models */
 db.contacts = require("./contact.model.js")(sequelize, Sequelize);
 db.phones = require("./phone.model.js")(sequelize, Sequelize);
-// Task 4.1
-db.companies = require("./companies.model.js")(sequelize, Sequelize);
 
-// Add migrations to alter the already-live tables
 async function runMigrations() {
   const queryInterface = sequelize.getQueryInterface();
   try {
@@ -33,13 +30,14 @@ async function runMigrations() {
     await queryInterface.addColumn("contacts", "address", {
       type: Sequelize.STRING,
       allowNull: true
-    }).catch(() => console.log("Column 'address' already exists in contacts table"));
+    }).catch((err) => console.error("Column 'address' already exists in contacts table. ", err));
 
     console.log("Updating phone columns");
     await queryInterface.renameColumn("phones", "name", "phone_type")
-      .catch(() => console.log("Column 'name' already renamed"));
+      .catch((err) => console.error("Column 'name' already renamed. ", err));
     await queryInterface.renameColumn("phones", "number", "phone_number")
-      .catch(() => console.log("Column 'number' already renamed"));
+      .catch((err) => console.error("Column 'number' already renamed. ", err));
+
 
     console.log("Migration complete");
   } catch (err) {
@@ -53,7 +51,7 @@ sequelize.authenticate() .then(() => {
   runMigrations(); 
 }) 
 .catch(err => { 
-  console.err("Unable to connect to database. ", err); 
+  console.error("Unable to connect to database. ", err); 
 });
 
 module.exports = db;
