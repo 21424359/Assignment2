@@ -5,13 +5,14 @@ function Contact(props) {
     const {contact, contacts, setContacts} = props;
     const [expanded, setExpanded] = useState(false);
     const [phones, setPhones] = useState([]);
+    const [company, setCompany] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost/api/contacts/' + contact.id + '/phones')
             .then(response => response.json())
             .then(data => setPhones(data))
             .catch((error) => {
-                console.error('Error:', error);
+                console.error('Error in Contact:', error);
             });
     }, []);
 
