@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Contact = sequelize.define("companies", {
+    const Company = sequelize.define("companies", {
         company_id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
