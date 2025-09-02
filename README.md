@@ -205,19 +205,21 @@ http put http://localhost/api/contacts/15/phones/
 ![Screenshot of result from ADD phones API](./Task3/T3_8.jpg)
 
 # Task 4
+The companies table was designed such that there is a 1:1 relationship between company and contact (each person works for 1 company as their main form of employment). Furthermore, given that this is a contact book kind of application, I thought to expose the company information through some deeper API rather than just /api/contacts so that the user would need to open the specific contact to be able to see the company detail (just like when adding contacts to your phone - you see the contact name. After opening the person's contact you see the phone number and company details).
+## Task 4.2
 The companies table is designed such that there is a 1:1 relationship between company and contact - each contact belongs to only 1 company.
-## Task 4.1
+### CREATE
 http POST http://localhost/api/contacts/14/company company_name="Alphabet" company_address="Gamma street, Theta City"
 ![Screenshot of result from ADD company API](./Task4/T4_1.jpg)
 
-## Task 4.2
+### READ
 http GET http://localhost/api/contacts/14/company
 ![Screenshot of result from GET company API](./Task4/T4_2.jpg)
 
-## Task 4.3
+### UPDATE
 http PUT http://localhost/api/contacts/14/company company_name="XYZ Pty. Ltd."
 ![Screenshot of result from PUT company API](./Task4/T4_3.jpg)
 
-## Task 4.4
+### DELETE
 http DELETE http://localhost/api/contacts/14/company
 ![Screenshot of result from DELETE company API](./Task4/T4_4.jpg)
