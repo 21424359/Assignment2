@@ -1,5 +1,5 @@
 const db = require("../models");
-const Company = db.companies;
+const Company = db.company; // match with index.js
 const Op = db.Sequelize.Op;
 
 // Create (POST) company
@@ -29,8 +29,8 @@ exports.create = (req, res) => {
 exports.findOne = (req, res) => {
     Company.findOne({
         where: {
-            contactId: req.params.contactId,
-            id: req.params.companyId
+            company_id: req.params.companyId,
+            contactId: req.params.contactId
         }
     })
         .then(data => {
@@ -72,8 +72,8 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.company_id;
 
-    Company.destroy(req.body, {
-        where: { id: id, contactId: req.params.contactId }
+    Company.destroy({
+        where: { company_id: id, contactId: req.params.contactId }
     })
         .then(num => {
             if (num == 1) {
