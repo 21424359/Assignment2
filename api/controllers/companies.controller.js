@@ -1,30 +1,38 @@
 const db = require("../models");
-const Contacts = db.contacts;
-const Phones = db.phones;
-const Companies = db.companies;
+const Company = db.company; // match with index.js
 const Op = db.Sequelize.Op;
 
-// Create contact
+// Create (POST) company
 exports.create = (req, res) => {
-    const contact = {
-        name: req.body.name,
+    // Get all the required data
+    const company = {
+        company_name: req.body.company_name,
+        company_address: req.body.company_address,
+        contactId: parseInt(req.params.contactId)
     };
 
-    Contacts.create(contact)
+    // Now create the company
+    Company.create(company)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                err.message || "Some error occurred"
+                    err.message || "Some error occurred"
             });
-        });
+        });        
 };
 
-// Get all contacts
-exports.findAll = (req, res) => {
-    Contacts.findAll()
+// Read (GET) company
+// Assuming that a person can only be part of 1 company
+exports.findOne = (req, res) => {
+    Company.findOne({
+        where: {
+            company_id: req.params.companyId,
+            contactId: req.params.contactId
+        }
+    })
         .then(data => {
             res.send(data);
         })
@@ -35,78 +43,52 @@ exports.findAll = (req, res) => {
         });
 };
 
-// Get one contact by id
-exports.findOne = (req, res) => {
-    const id = req.params.contactId;
-
-    Contacts.findByPk(id)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Contact with id=" + id
-            });
-        }
-    );
-};
-
-// Update one contact by id
+// Updated (PUT) company
 exports.update = (req, res) => {
-    const id = req.params.contactId;
+    const id = req.params.companyId;
 
-    Contacts.update(req.body, {
-        where: { id: id }
+    Company.update(req.body, {
+        where: { company_id: id, contactId: req.params.contactId }
     })
-    .then(num => {
-        if (num == 1) {
-            res.send({
-                message: "Contact was updated successfully."
-            });
-        } else {
-            res.send({
-                message: `Cannot update Contact`
-            });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error updating Contact with id=" + id
-        });
-    });
-};
-
-// Delete one contact by id
-exports.delete = (req, res) => {
-    const id = parseInt(req.params.contactId);
-
-    Phones.destroy({
-        where: { contactId: id }
-    })
-    .then(num => {
-        Contacts.destroy({
-            where: { contactId: id }
-        })
-        .then(num => {
-            Companies.destroy({
-                where: { id: id }
-            })
-        })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Contact was deleted successfully!"
+                    message: "Company was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Contact`
+                    message: `Cannot update Company`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Contact with id=" + id
+                message: "Error updating Company with id=" + id
             });
         });
-    });
 };
+
+// Delete (DELETE) company
+exports.delete = (req, res) => {
+    const id = req.params.company_id;
+
+    Company.destroy({
+        where: { company_id: id, contactId: req.params.contactId }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Company was destroyed successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Company`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Company with id=" + id
+            });
+        });
+}
