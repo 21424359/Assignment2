@@ -203,3 +203,21 @@ http delete http://localhost/api/contacts/15/phones/17
 ## Task 3.8
 http put http://localhost/api/contacts/15/phones/
 ![Screenshot of result from ADD phones API](./Task3/T3_8.jpg)
+
+# Task 4
+The companies table is designed such that there is a 1:1 relationship between company and contact - each contact belongs to only 1 company.
+## Task 4.1
+http POST http://localhost/api/contacts/14/company company_name="Alphabet" company_address="Gamma street, Theta City"
+![Screenshot of result from ADD company API](./Task4/T4_1.jpg)
+
+## Task 4.2
+http GET http://localhost/api/contacts/14/company
+![Screenshot of result from GET company API](./Task4/T4_2.jpg)
+
+## Task 4.3
+http PUT http://localhost/api/contacts/14/company company_name="XYZ Pty. Ltd."
+![Screenshot of result from PUT company API](./Task4/T4_3.jpg)
+
+## Task 4.4
+http DELETE http://localhost/api/contacts/14/company
+![Screenshot of result from DELETE company API](./Task4/T4_4.jpg)
