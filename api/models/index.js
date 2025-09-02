@@ -22,6 +22,7 @@ db.sequelize = sequelize;
 /* Create database tables and models */
 db.contacts = require("./contact.model.js")(sequelize, Sequelize);
 db.phones = require("./phone.model.js")(sequelize, Sequelize);
+db.company = require("./companies.model.js")(sequelize, Sequelize);
 
 async function runMigrations() {
   const queryInterface = sequelize.getQueryInterface();
@@ -38,6 +39,26 @@ async function runMigrations() {
     await queryInterface.renameColumn("phones", "number", "phone_number")
       .catch((err) => console.error("Column 'number' already renamed. ", err));
 
+
+    await queryInterface.createTable("companies", {
+      company_id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      company_name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      company_address: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      contactId: {
+        type: Sequelize.INTEGER,
+        references: { model: "contacts", key: "id" }
+      }
+    }).catch((err) => console.error("Table 'companies' already exists!! ", err));
 
     console.log("Migration complete");
   } catch (err) {
