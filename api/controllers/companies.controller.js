@@ -45,10 +45,8 @@ exports.findOne = (req, res) => {
 
 // Updated (PUT) company
 exports.update = (req, res) => {
-    const id = req.params.companyId;
-
     Company.update(req.body, {
-        where: { company_id: id, contactId: req.params.contactId }
+        where: { contactId: req.params.contactId }
     })
         .then(num => {
             if (num == 1) {
@@ -73,7 +71,7 @@ exports.delete = (req, res) => {
     const id = req.params.company_id;
 
     Company.destroy({
-        where: { company_id: id, contactId: req.params.contactId }
+        where: { contactId: req.params.contactId }
     })
         .then(num => {
             if (num == 1) {
