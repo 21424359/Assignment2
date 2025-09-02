@@ -19,6 +19,12 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+// Sync database - allow alterations to the tables (so that we can add the company table)
+db.sequelize.sync({ alter: true })
+  .catch(err => {
+    console.error("Failed to sync db: " + err.message);
+  });
+
 /* Create database tables and models */
 db.contacts = require("./contact.model.js")(sequelize, Sequelize);
 db.phones = require("./phone.model.js")(sequelize, Sequelize);
