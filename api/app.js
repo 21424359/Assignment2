@@ -29,6 +29,9 @@ require("./routes/contacts.routes")(app);
 require("./routes/phones.routes")(app);
 require("./routes/stats.routes")(app);
 
+// Add the company routes
+require("./routes/companies.routes")(app);
+
 // set port, listen for requests
 const PORT = 5000;
 app.listen(PORT, () => {
