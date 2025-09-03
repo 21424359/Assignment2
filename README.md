@@ -223,3 +223,25 @@ http PUT http://localhost/api/contacts/14/company company_name="XYZ Pty. Ltd."
 ### DELETE
 http DELETE http://localhost/api/contacts/14/company
 ![Screenshot of result from DELETE company API](./Task4/T4_4.jpg)
+
+
+# Task 5
+After adding the companies table and exposing all the APIs, the front end was changed to look like below:
+
+![New UI for company and contact creation](./Task5/T5_3_a.jpg)
+
+The company is created during contact creation. The company details are optional, so after filling all the details (company not required), you can click on the "Create Contact" button to create the contact. Once created, it will show up as a card at the bottom of the list of cards.
+
+![New contact shows up at the bottom of the list of contact cards](./Task5/T5_3_b.jpg)
+
+When you click on a card, it will expand to reveal the company name and address associated with the contact as well as space to add / remove phone numbers:
+
+![Expanded card showing company details and phone details as before](./Task5/T5_3_c.jpg)
+
+You can create a phone as before.
+
+![Add phone details as before](./Task5/T5_3_d.jpg)
+
+To delete the contact, you can simply click delete next to the contact. NOTE this does not persist to the database - I tried to modify the contact delete function in contact.controller.js by adding company.destroy() in the chain of .then()'s and by adding it separately, but it was not persisting, and instead started through json parsing errors in Contact.js
+
+![Add phone details as before](./Task5/T5_3_e.jpg)
