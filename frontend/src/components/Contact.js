@@ -6,6 +6,16 @@ function Contact(props) {
     const [expanded, setExpanded] = useState(false);
     const [phones, setPhones] = useState([]);
     const [company, setCompany] = useState([]);
+    
+    // Get company details to populate the expanded card
+    useEffect(() => {
+        fetch('http://localhost/api/contacts/' + contact.id + '/company')
+            .then(response => response.json())
+            .then(data => setCompany(data))
+            .catch((error) => {
+                console.error('Error in Contact:', error);
+            });
+    }, []);
 
     useEffect(() => {
         fetch('http://localhost/api/contacts/' + contact.id + '/phones')
