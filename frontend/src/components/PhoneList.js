@@ -2,10 +2,14 @@ import Phone from './Phone.js';
 import NewPhone from './NewPhone.js';
 
 function PhoneList(props) {
-    const {contact, phones, setPhones} = props;
+    const {contact, company, phones, setPhones} = props;
 
 	return (
         <div className='phone-list'>
+            <div className='summary'>
+                <p><b>Company: </b>{company.company_name}</p>
+                <p><b>Address: </b>{company.company_address}</p>
+            </div>
             <NewPhone phones={phones} setPhones={setPhones} contact={contact} />
 
             <table onClick={(e) => e.stopPropagation()}>
