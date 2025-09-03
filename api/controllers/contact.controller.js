@@ -8,6 +8,7 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
     const contact = {
         name: req.body.name,
+        address: req.body.address
     };
 
     Contacts.create(contact)
