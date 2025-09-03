@@ -26,7 +26,7 @@ function NewContact(props) {
 
         if (data.id) {
             setContacts([...contacts, data]);
-            company = await fetch('http://localhost/api/contacts/'+ data.id + '/company', {
+            const company = await fetch('http://localhost/api/contacts/'+ data.id + '/company', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
