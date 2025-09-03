@@ -82,7 +82,7 @@ exports.delete = (req, res) => {
     const id = parseInt(req.params.contactId);
 
     Phones.destroy({
-        where: { contactId: id }
+        where: { id: id }
     })
     .then(num => {
         Contacts.destroy({
