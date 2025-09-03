@@ -29,7 +29,7 @@ function NewContact(props) {
             const company = await fetch('http://localhost/api/contacts/'+ data.id + '/company', {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     company_name,
